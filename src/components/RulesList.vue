@@ -7,7 +7,6 @@ const { rules } = storeToRefs(main);
 </script>
 
 <template>
-  <h1>ACT Rules</h1>
   <ul>
     <li v-for="{ ruleId, ruleName } in rules" :key="ruleId">
       {{ ruleName }}

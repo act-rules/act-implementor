@@ -1,7 +1,15 @@
+<script setup lang="ts">
+import NavBar from './NavBar.vue'
+</script>
+
 <template>  
-  <header><div>
-    ACT Implementation Generator
-  </div></header>
+  <header>
+    <div><router-link to="/">
+      ACT Implementation Generator
+    </router-link>
+    </div>
+  </header>
+  <nav><NavBar /></nav>
   <main>
     <slot />
   </main>
@@ -9,7 +17,7 @@
 </template>
 
 <style scoped>
-  header > div, footer, main {
+  header > div, footer, main, nav {
     margin: 0 auto;
     max-width: 800px;
   }

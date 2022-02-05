@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
 import { useMainStore } from '../stores/useMain';
 
 const main = useMainStore();
 const statusText = ref('');
 const testcaseUrl = ref('https://act-rules.github.io/testcases.json');
+const emit = defineEmits<{ (e: 'loaded', value: undefined): void }>()
 
 async function loadData() {
   statusText.value = 'Loading... please wait';
-  await main.loadTestCases(testcaseUrl.value)
+  await main.loadTestCases(testcaseUrl.value);
+  emit('loaded', undefined);
 }
 </script>
 
 <template>
-  <h1>ACT Implementation Generator</h1>
-  <p>This </p>
   <p aria-live="polite" v-show="statusText !== ''">
     {{ statusText }}
   </p>
