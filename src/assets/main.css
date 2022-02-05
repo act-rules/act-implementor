@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+:root {
+  --text: rgb(31, 31, 31);
+  --back: white;
+  --back-accent: #eee;
+  --primary: hsl(268, 100%, 36%);
+  --primary-back: hsl(268, 100%, 95%);
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  background: var(--back);
+  font-family: 'Source Sans Pro', sans-serif;
+}
+h1 {
+  color: var(--primary);
+}
+input {
+  padding: .5rem;
+  margin-top: .5rem;
+  max-width: 40em;
+}
+button {
+  padding: .5em 1em;
+  border-radius: .3rem;
+  background: var(--primary-back);
+  border: solid 3px var(--primary);
+}
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+[hidden] {
+  display: none !important;
+}
