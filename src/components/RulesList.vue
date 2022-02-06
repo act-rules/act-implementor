@@ -7,11 +7,13 @@ const { rules } = storeToRefs(main);
 </script>
 
 <template>
-  <ul>
+  <ol>
     <li v-for="{ ruleId, ruleName } in rules" :key="ruleId">
-      {{ ruleName }}
+      <router-link :to="`/generate/${ruleId}`">
+        {{ ruleName }}
+      </router-link>
     </li>
-  </ul>
+  </ol>
 </template>
 
 <style scoped>

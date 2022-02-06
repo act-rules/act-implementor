@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavBar from './NavBar.vue'
+import NavBar from './NavBar.vue';
 </script>
 
 <template>  
@@ -19,13 +19,22 @@ import NavBar from './NavBar.vue'
 <style scoped>
   header > div, footer, main, nav {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 830px;
+    padding: 0 1rem;
   }
   header {
     background: var(--back-accent);
     border-bottom: solid 1px var(--primary);  
-    padding: .5em 0 .3em;
     font-size: 1.5em;
     font-weight: 900;
+  }
+  header a {
+    padding: .5em 1em .3em 0;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-block;
+  }
+  header a:hover, header a:focus {
+    text-decoration: underline;
   }
 </style>

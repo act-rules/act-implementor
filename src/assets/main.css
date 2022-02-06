@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('/src/assets/forms.css');
 
 :root {
   --text: rgb(31, 31, 31);
@@ -17,23 +18,12 @@ body {
 h1 {
   color: var(--primary);
 }
-input {
-  padding: .5rem;
-  margin-top: .5rem;
-  max-width: 40em;
-}
-button {
-  padding: .5em 1em;
-  border-radius: .3rem;
-  background: var(--primary-back);
-  border: solid 3px var(--primary);
-}
-label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
 [hidden] {
   display: none !important;
+}
+summary {
+  margin-bottom: 1rem;
+}
+a[href] {
+  color: var(--primary);
 }
