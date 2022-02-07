@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { getImplementation, RuleImplementation } from '../logic/getImplementation';
-import { TestCase, TestCasesJson } from '../types';
+import { getImplementation } from '../logic/getImplementation';
+import { TestCase, TestCasesJson, RuleImplementation } from '../types';
 
 interface State {
   loaded?: boolean
