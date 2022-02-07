@@ -8,7 +8,7 @@ const { rules } = storeToRefs(main);
 
 <template>
   <ol>
-    <li v-for="{ ruleId, ruleName } in rules" :key="ruleId">
+    <li v-for="{ ruleId, ruleName } of rules" :key="ruleId">
       <router-link :to="`/generate/${ruleId}`">
         {{ ruleName }}
       </router-link>
@@ -17,4 +17,8 @@ const { rules } = storeToRefs(main);
 </template>
 
 <style scoped>
+a {
+  display: inline-block;
+  padding: .2em
+}
 </style>

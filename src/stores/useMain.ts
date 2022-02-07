@@ -9,7 +9,19 @@ interface State {
 }
 
 export const useMainStore = defineStore('main', {
-  state: (): State => ({}),
+  state: (): State => ({
+    loaded: false,
+    testCases: undefined,
+    rules: undefined
+  }),
+
+  getters: {
+    getRule() {
+      return (ruleId: string): RuleImplementation | undefined => {
+        return this.rules && this.rules[ruleId];
+      }
+    }
+  },
 
   actions: {
     async loadTestCases(testCaseUrl: string) {

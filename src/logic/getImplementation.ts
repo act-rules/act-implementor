@@ -35,9 +35,9 @@ export function getImplementation(
       relativePath,
       expected,
       ruleId,
-      ruleName,
       rulePage
     } = testCase
+    const ruleName = testCase.ruleName.replace(/`/g, '')
 
     implementation.rules[testCase.ruleId] ??= { ruleName, ruleId, rulePage, testCases: [] }
     implementation.rules[testCase.ruleId].testCases.push({

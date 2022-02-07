@@ -1,3 +1,5 @@
+export interface ImplementationReport {}
+
 export interface TestCasesJson {
   name: string
   website: string

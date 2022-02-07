@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
+import { useRouter, useRoute } from 'vue-router';
+import { RuleImplementation } from '../logic/getImplementation';
 import { useMainStore } from '../stores/useMain';
+import ImplementationTable from '../components/ImplementationTable.vue';
 
-const store = useMainStore();
-const { loaded } = storeToRefs(store);
+const { getRule } = useMainStore();
+const ruleId = String(useRoute().params.ruleId);
+const rule = getRule(ruleId) as RuleImplementation;
+if (!rule) {
+  useRouter().replace('/error');
+}
 </script>
 
 <template>
-  <h1>Generate Rule</h1>
+  <h1>{{ rule.ruleName }} ({{rule.ruleId}})</h1>
+  <p>Testing success criterion X.Y.Z</p>
+  <p>Completed X out of Y test cases</p>
+  <ImplementationTable :ruleId="rule.ruleId" />
 </template>
