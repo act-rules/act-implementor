@@ -18,7 +18,31 @@ export interface TestCase {
   ruleId: string
   ruleName: string
   rulePage: string
-  ruleAccessibilityRequirements: Requirement
+  ruleAccessibilityRequirements: RequirementsMapping
 }
 
-export type Requirement = null;
+export interface RuleImplementation {
+  ruleName: string
+  ruleId: string
+  rulePage: string
+  ruleAccessibilityRequirements: RequirementsMapping
+  testCases: TestCaseReport[]
+}
+
+export interface TestCaseReport {
+  testcaseId: string
+  testcaseTitle: string
+  url: string
+  relativePath: string
+  expected?: string
+}
+
+export type RequirementsMapping = null | Record<string, AccessibilityRequirement>;
+
+export interface AccessibilityRequirement {
+  title?: string
+  forConformance: boolean
+  failed: string
+  passed: string
+  inapplicable: string
+}

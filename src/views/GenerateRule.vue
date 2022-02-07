@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router';
-import { RuleImplementation } from '../logic/getImplementation';
+import { RuleImplementation } from '../types';
 import { useMainStore } from '../stores/useMain';
 import ImplementationTable from '../components/ImplementationTable.vue';
 
@@ -14,7 +14,6 @@ if (!rule) {
 
 <template>
   <h1>{{ rule.ruleName }} ({{rule.ruleId}})</h1>
-  <p>Testing success criterion X.Y.Z</p>
   <p>Completed X out of Y test cases</p>
   <ImplementationTable :ruleId="rule.ruleId" />
 </template>

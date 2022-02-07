@@ -28,11 +28,11 @@ async function loadData() {
       Create a new implementation
     </label>
     <label class="radio">
-      <input value="text" v-model="inputType" type="radio" name="impl-type" />
+      <input value="text" v-model="inputType" type="radio" name="impl-type" disabled />
       Include as text
     </label>
     <label class="radio">
-      <input value="url" v-model="inputType" type="radio" name="impl-type" />
+      <input value="url" v-model="inputType" type="radio" name="impl-type" disabled />
       Load from URL
     </label>
   </fieldset>
@@ -60,8 +60,8 @@ async function loadData() {
 
 <style scoped>
   [aria-live] {
-    padding: .8rem;
-    background: var(--primary-back);
-    border: solid 1px var(--primary);
+    padding: .75rem;
+    background: var(--primary-end);
+    border: solid 1px var(--primary-start);
   }
 </style>

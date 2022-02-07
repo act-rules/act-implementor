@@ -1,22 +1,7 @@
-import { TestCasesJson, ImplementationReport } from '../types';
+import { TestCasesJson, ImplementationReport, RuleImplementation } from '../types';
 
 export interface Implementation {
   rules: Record<string, RuleImplementation>
-}
-
-export interface RuleImplementation {
-  ruleName: string
-  ruleId: string
-  rulePage: string
-  testCases: TestCaseReport[]
-}
-
-export interface TestCaseReport {
-  testcaseId: string
-  testcaseTitle: string
-  url: string
-  relativePath: string
-  expected?: string
 }
 
 export function getImplementation(
@@ -35,11 +20,18 @@ export function getImplementation(
       relativePath,
       expected,
       ruleId,
-      rulePage
+      rulePage,
+      ruleAccessibilityRequirements
     } = testCase
     const ruleName = testCase.ruleName.replace(/`/g, '')
 
-    implementation.rules[testCase.ruleId] ??= { ruleName, ruleId, rulePage, testCases: [] }
+    implementation.rules[testCase.ruleId] ??= {
+      ruleName,
+      ruleId,
+      rulePage,
+      ruleAccessibilityRequirements,
+      testCases: []
+    }
     implementation.rules[testCase.ruleId].testCases.push({
       testcaseId, testcaseTitle, url, relativePath, expected
     })

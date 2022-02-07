@@ -23,8 +23,8 @@ import NavBar from './NavBar.vue';
     padding: 0 1rem;
   }
   header {
-    background: var(--back-accent);
-    border-bottom: solid 1px var(--primary);  
+    background: var(--base-end2);
+    border-bottom: solid 1px var(--primary-start);  
     font-size: 1.5em;
     font-weight: 900;
   }

@@ -1,29 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro&display=swap');
 @import url('/src/assets/forms.css');
+@import url('/src/assets/tables.css');
 
 :root {
-  --text: rgb(31, 31, 31);
-  --back: white;
-  --back-accent: #eee;
-  --primary: hsl(268, 100%, 36%);
-  --primary-back: hsl(268, 100%, 95%);
+  --base-start: hsl(0, 0%, 12%);
+  --base-end2: hsl(0, 0%, 93%);
+  --base-end: hsl(0, 0%, 98%);
+  /* Contrast of 3:1 between start => mid => end. Start to End has 9:1 */
+  --primary-start: hsl(268, 100%, 34%);
+  --primary-mid: hsl(268, 79%, 67%);
+  --primary-end: hsl(268, 100%, 95%);
 }
+
 body {
   margin: 0;
   padding: 0;
-  color: var(--text);
-  background: var(--back);
-  font-family: 'Source Sans Pro', sans-serif;
+  color: var(--base-start);
+  background: var(--base-end);
+  font-family: 'Nunito', sans-serif;
 }
+
+*:focus {
+  outline: solid 1px var(--primary-start);
+  box-shadow: 0 0 2px var(--primary-start),  0 0 4px var(--primary-start);
+}
+
 h1 {
-  color: var(--primary);
+  color: var(--primary-start);
+  font-size: 1.6rem;
 }
+
 [hidden] {
   display: none !important;
 }
+
 summary {
   margin-bottom: 1rem;
 }
+
 a[href] {
-  color: var(--primary);
+  color: var(--primary-start);
 }
