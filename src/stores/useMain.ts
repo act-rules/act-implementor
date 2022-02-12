@@ -1,24 +1,47 @@
 import { defineStore } from 'pinia'
+import { assert } from '../logic/assert'
 import { getImplementation } from '../logic/getImplementation';
 import { TestCase, TestCasesJson, RuleImplementation } from '../types';
+
+interface Procedure {
+  ruleIds: string[]
+  assertions: Record<string, string>
+}
 
 interface State {
   loaded?: boolean
   testCases?: TestCase[]
   rules?: Record<string, RuleImplementation>
+  procedures: Record<string, Procedure>
 }
 
 export const useMainStore = defineStore('main', {
   state: (): State => ({
     loaded: false,
     testCases: undefined,
-    rules: undefined
+    rules: undefined,
+    procedures: {}
   }),
 
   getters: {
     getRule() {
-      return (ruleId: string): RuleImplementation | undefined => {
-        return this.rules && this.rules[ruleId];
+      return (ruleId: string): RuleImplementation => {
+        assert(this.rules?.[ruleId], `Unknown rule ID ${ruleId}`)
+        return this.rules[ruleId];
+      }
+    },
+
+    findProcedureName() {
+      return (ruleId: string): string => {
+        const entries = Object.entries(this.procedures || {});
+        const entry = entries.find(([, { ruleIds }]) => ruleIds.includes(ruleId));
+        return (entry ? entry[0] : `${ruleId}-test`);
+      }
+    },
+
+    getOutcome() {
+      return (procedureName: string, testCaseId: string): string => {
+        return this.procedures[procedureName]?.assertions[testCaseId] ?? 'untested';
       }
     }
   },
@@ -32,6 +55,30 @@ export const useMainStore = defineStore('main', {
       this.rules = rules;
       this.loaded = true;
       this.testCases = jsonData.testcases;
+    },
+
+    renameProcedure(currentName: string, newName: string) {
+      if (!this.procedures[currentName]) {
+        return; // No procedure, do nothing
+      }
+      this.procedures[newName] = {
+        ...this.procedures[newName] || {},
+        ...this.procedures[currentName]
+      }
+      delete this.procedures[currentName];
+    },
+
+    setOutcome(procedureName: string, testCaseId: string, outcome: string) {
+      this.procedures[procedureName] ??= { ruleIds: [], assertions: {} }
+      const { assertions, ruleIds } = this.procedures[procedureName]
+      const testCase = this.testCases?.find(testCase => {
+        return testCase.testcaseId === testCaseId
+      })
+
+      assertions[testCaseId] = outcome;
+      if (testCase?.ruleId && !ruleIds.includes(testCase.ruleId)) {
+        ruleIds.push(testCase.ruleId)
+      }
     }
   }
 });

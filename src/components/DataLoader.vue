@@ -2,7 +2,7 @@
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '../stores/useMain';
 
-const main = useMainStore();
+const { loadTestCases } = useMainStore();
 const statusText = ref('');
 const reportText = ref('');
 const reportUrl = ref('https://');
@@ -12,7 +12,7 @@ const emit = defineEmits(['loaded']);
 
 async function loadData() {
   statusText.value = 'Loading... please wait';
-  await main.loadTestCases(testcaseUrl.value);
+  await loadTestCases(testcaseUrl.value);
   emit('loaded');
 }
 </script>
