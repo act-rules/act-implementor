@@ -4,7 +4,8 @@
 
 :root {
   --base-start: hsl(0, 0%, 12%);
-  --base-end2: hsl(0, 0%, 93%);
+  --base-mid: hsl(0, 0%, 56%);
+  --base-preEnd: hsl(0, 0%, 93%);
   --base-end: hsl(0, 0%, 98%);
   /* Contrast of 3:1 between start => mid => end. Start to End has 9:1 */
   --primary-start: hsl(268, 100%, 34%);
@@ -39,5 +40,8 @@ summary {
 }
 
 a[href] {
+  color: var(--base-start);
+}
+p a[href], nav a[href] {
   color: var(--primary-start);
 }
