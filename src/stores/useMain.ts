@@ -39,6 +39,23 @@ export const useMainStore = defineStore('main', {
       }
     },
 
+    getRuleStats() {
+      return (
+        ruleId: string,
+        procedureName?: string
+      ): { total: number, complete: number } => {
+        procedureName ??= this.findProcedureName(ruleId);
+        let complete = 0;
+        const { testCases } = this.getRule(ruleId);
+        testCases.forEach(({ testcaseId }) => {
+          if (procedureName && this.getOutcome(procedureName, testcaseId) !== 'untested') {
+            complete++;
+          }
+        });
+        return { total: testCases.length, complete }
+      }
+    },
+
     getOutcome() {
       return (procedureName: string, testCaseId: string): string => {
         return this.procedures[procedureName]?.assertions[testCaseId] ?? 'untested';
