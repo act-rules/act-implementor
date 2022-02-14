@@ -9,13 +9,13 @@ const rule = ref<RuleImplementation | null>(
   getRule(props.ruleId)
 )
 
-function selected(testCaseId: string, value: string): boolean {
-  return getOutcome(props.procedureName, testCaseId) === value;
+function selected(testCaseUrl: string, value: string): boolean {
+  return getOutcome(props.procedureName, testCaseUrl) === value;
 }
 
-function changeOutcome(testCaseId: string, event: InputEvent) {
+function changeOutcome(testCaseUrl: string, event: InputEvent) {
   const outcome = (event?.target as HTMLSelectElement).value || 'untested';
-  setOutcome(props.procedureName, testCaseId, outcome);
+  setOutcome(props.procedureName, testCaseUrl, outcome);
 }
 
 const results = {
@@ -43,12 +43,12 @@ const results = {
         <td>
           <select
             :aria-labelledby="`col-outcome ${testCase.testcaseId}`"
-            @input="changeOutcome(testCase.testcaseId, $event as InputEvent)"
+            @input="changeOutcome(testCase.url, $event as InputEvent)"
           >
             <option 
               v-for="text, value of results"
               :value="value"
-              :selected="selected(testCase.testcaseId, value)"
+              :selected="selected(testCase.url, value)"
               v-text="text"
             />
           </select>

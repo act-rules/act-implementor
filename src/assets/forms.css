@@ -1,4 +1,4 @@
-input {
+input, textarea {
   padding: .5rem;
   margin-top: .5rem;
   max-width: 40em;
@@ -9,15 +9,17 @@ input[type="radio"] {
   margin: .25em 1em 0 0;
 }
 
-select {
-  font-size: 1em;
-}
-
 button {
+  color: var(--base-start);
   padding: .5em 1em;
   border-radius: .3rem;
   background: var(--primary-back);
   border: solid 3px var(--primary-mid);
+  margin-right: 1em;
+}
+
+button[disabled] {
+  opacity: 0.5;
 }
 
 button:focus {
@@ -34,6 +36,14 @@ label {
 label.radio {
   flex-direction: row;
   margin-bottom: .5rem;
+}
+
+select {
+  font-size: 1em;
+}
+
+textarea {
+  min-height: 5rem;
 }
 
 fieldset {

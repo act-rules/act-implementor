@@ -46,3 +46,8 @@ export interface AccessibilityRequirement {
   passed: string
   inapplicable: string
 }
+
+export interface Procedure {
+  ruleIds: string[]
+  assertions: Record<string, string>
+}

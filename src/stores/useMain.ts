@@ -1,12 +1,8 @@
 import { defineStore } from 'pinia'
 import { assert } from '../logic/assert'
 import { getImplementation } from '../logic/getImplementation';
-import { TestCase, TestCasesJson, RuleImplementation } from '../types';
-
-interface Procedure {
-  ruleIds: string[]
-  assertions: Record<string, string>
-}
+import { TestCase, TestCasesJson, RuleImplementation, Procedure } from '../types';
+import { createReport } from '../logic/earl'
 
 interface State {
   loaded?: boolean
@@ -43,22 +39,22 @@ export const useMainStore = defineStore('main', {
       return (
         ruleId: string,
         procedureName?: string
-      ): { total: number, complete: number } => {
+      ): { total: number, complete: number, procedureName: string } => {
         procedureName ??= this.findProcedureName(ruleId);
         let complete = 0;
         const { testCases } = this.getRule(ruleId);
-        testCases.forEach(({ testcaseId }) => {
-          if (procedureName && this.getOutcome(procedureName, testcaseId) !== 'untested') {
+        testCases.forEach(({ url }) => {
+          if (procedureName && this.getOutcome(procedureName, url) !== 'untested') {
             complete++;
           }
         });
-        return { total: testCases.length, complete }
+        return { total: testCases.length, complete, procedureName }
       }
     },
 
     getOutcome() {
-      return (procedureName: string, testCaseId: string): string => {
-        return this.procedures[procedureName]?.assertions[testCaseId] ?? 'untested';
+      return (procedureName: string, testCaseUrl: string): string => {
+        return this.procedures[procedureName]?.assertions[testCaseUrl] ?? 'untested';
       }
     }
   },
@@ -85,17 +81,21 @@ export const useMainStore = defineStore('main', {
       delete this.procedures[currentName];
     },
 
-    setOutcome(procedureName: string, testCaseId: string, outcome: string) {
+    setOutcome(procedureName: string, testCaseUrl: string, outcome: string) {
       this.procedures[procedureName] ??= { ruleIds: [], assertions: {} }
       const { assertions, ruleIds } = this.procedures[procedureName]
       const testCase = this.testCases?.find(testCase => {
-        return testCase.testcaseId === testCaseId
+        testCase.url
+        return testCase.url === testCaseUrl
       })
-
-      assertions[testCaseId] = outcome;
+      assertions[testCaseUrl] = outcome;
       if (testCase?.ruleId && !ruleIds.includes(testCase.ruleId)) {
         ruleIds.push(testCase.ruleId)
       }
+    },
+
+    getEarlReport(): string {
+      return createReport(this.procedures);
     }
   }
 });
