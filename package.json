@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
+    "lint": "eslint --fix --ignore-path .gitignore --ext .vue,.ts,.js .",
     "build": "vue-tsc --noEmit && vite build",
     "format": "prettier . --write --ignore-unknown",
     "prepare": "husky install",
@@ -15,15 +16,22 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
     "@vitejs/plugin-vue": "^2.0.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.4.1",
+    "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
-    "husky": "^7.0.4",
     "typescript": "^4.4.4",
     "vite": "^2.7.2",
     "vue-tsc": "^0.29.8"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "**/*.{vue,ts,js}": "eslint --fix"
   }
 }
