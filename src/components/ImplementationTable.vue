@@ -34,7 +34,11 @@ const results = {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="testCase in rule?.testCases" :id="testCase.testcaseId">
+      <tr
+        v-for="testCase in rule?.testCases"
+        :id="testCase.testcaseId"
+        :key="testCase.url"
+      >
         <th>
           <a :href="testCase.url" target="blank" title="Opens in a new window">
             {{ testCase.testcaseTitle }}
@@ -47,6 +51,7 @@ const results = {
           >
             <option
               v-for="(text, value) of results"
+              :key="value"
               :value="value"
               :selected="selected(testCase.url, value)"
               v-text="text"

@@ -1,17 +1,10 @@
-import {
-  TestCasesJson,
-  ImplementationReport,
-  RuleImplementation,
-} from "../types";
+import { TestCasesJson, RuleImplementation } from "../types";
 
 export interface Implementation {
   rules: Record<string, RuleImplementation>;
 }
 
-export function getImplementation(
-  testCaseJson: TestCasesJson,
-  implementationReport: ImplementationReport
-): Implementation {
+export function getImplementation(testCaseJson: TestCasesJson): Implementation {
   const implementation: Implementation = {
     rules: {},
   };

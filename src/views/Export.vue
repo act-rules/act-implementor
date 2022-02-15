@@ -19,9 +19,9 @@ function copyTextarea() {
   <label>
     JSON Results
     <textarea
-      v-text="getEarlReport()"
-      readonly
       :ref="(el) => (textarea = el)"
+      readonly
+      v-text="getEarlReport()"
     />
   </label>
   <button @click="copyTextarea">Copy to clipboard</button>

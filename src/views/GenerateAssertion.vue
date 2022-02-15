@@ -46,7 +46,10 @@ function countText() {
     <a :href="rule.rulePage" target="blank">rule page</a>.
   </p>
   <ul v-if="rule.ruleAccessibilityRequirements">
-    <li v-for="(requirement, key) in rule.ruleAccessibilityRequirements">
+    <li
+      v-for="(requirement, key) in rule.ruleAccessibilityRequirements"
+      :key="key"
+    >
       {{ requirementName(key, requirement) }}
     </li>
   </ul>
@@ -55,7 +58,7 @@ function countText() {
     Implementation Procedure
     <input :value="procedureName" @change="updateProcedure" />
   </label>
-  <ImplementationTable :ruleId="rule.ruleId" :procedureName="procedureName" />
+  <ImplementationTable :rule-id="rule.ruleId" :procedure-name="procedureName" />
   <p v-text="countText()" />
   <p><router-link to="/generate/">Back to rules list</router-link></p>
 </template>

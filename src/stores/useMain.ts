@@ -75,8 +75,7 @@ export const useMainStore = defineStore("main", {
     async loadTestCases(testCaseUrl: string) {
       const content = await fetch(testCaseUrl);
       const jsonData = (await content.json()) as TestCasesJson;
-      const { rules } = getImplementation(jsonData, {});
-      // @ts-ignore // Vue being annoying
+      const { rules } = getImplementation(jsonData);
       this.rules = rules;
       this.loaded = true;
       this.testCases = jsonData.testcases;
