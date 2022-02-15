@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { assert } from '../logic/assert'
 import { getImplementation } from '../logic/getImplementation';
 import { TestCase, TestCasesJson, RuleImplementation, Procedure } from '../types';
-import { createReport } from '../logic/earl'
+import { createReport, loadReport } from '../logic/earl'
 
 interface State {
   loaded?: boolean
@@ -68,6 +68,15 @@ export const useMainStore = defineStore('main', {
       this.rules = rules;
       this.loaded = true;
       this.testCases = jsonData.testcases;
+    },
+
+    resetReport() {
+      this.procedures = {}
+    },
+
+    loadReportText(reportText: string) {
+      const procedures = loadReport(reportText);
+      this.procedures = procedures;
     },
 
     renameProcedure(currentName: string, newName: string) {

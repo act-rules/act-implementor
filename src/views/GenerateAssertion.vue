@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useMainStore } from '../stores/useMain';
 import ImplementationTable from '../components/ImplementationTable.vue';
-import { AccessibilityRequirement } from '../types';
+import { AccessibilityRequirement, RuleImplementation } from '../types';
 
+let rule: RuleImplementation
 const { getRule, renameProcedure, findProcedureName, getRuleStats } = useMainStore();
 const ruleId = String(useRoute().params.ruleId);
 const procedureName = ref(findProcedureName(ruleId));
-const rule = getRule(ruleId);
+try {
+  rule = getRule(ruleId);
+} catch (e) {
+  console.error(e);
+  useRouter().replace('/start');
+}
 
 function updateProcedure(e: Event) {
   const currentValue = procedureName.value;

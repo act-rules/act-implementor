@@ -51,3 +51,34 @@ export interface Procedure {
   ruleIds: string[]
   assertions: Record<string, string>
 }
+
+export interface EarlReport {
+  '@context': string
+  '@graph': EarlAssertion[]
+}
+
+export interface EarlAssertion {
+  '@type': 'Assertion'
+  subject: EarlTestSubject
+  test: EarlTestCase
+  result: EarlTestResult
+};
+
+export interface EarlTestSubject {
+  '@type': 'TestSubject'
+  source: string
+}
+
+export interface EarlTestCase {
+  "@type": "TestCase"
+  title: string
+}
+
+export interface EarlTestResult {
+  "@type": "TestResult"
+  outcome: EarlOutcome
+}
+
+export type Outcome = 'passed' | 'failed' | 'cannotTell' | 'untested' | 'inapplicable';
+
+export type EarlOutcome = `earl:${Outcome}`;
