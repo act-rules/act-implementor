@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import DataLoader from '../components/DataLoader.vue';
-import RulesList from '../components/RulesList.vue';
-import { useMainStore } from '../stores/useMain';
+import { storeToRefs } from "pinia";
+import DataLoader from "../components/DataLoader.vue";
+import RulesList from "../components/RulesList.vue";
+import { useMainStore } from "../stores/useMain";
 
 const store = useMainStore();
 const { loaded } = storeToRefs(store);

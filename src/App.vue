@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Layout from './components/Layout.vue'
+import Layout from "./components/Layout.vue";
 </script>
 
 <template>
@@ -7,4 +7,3 @@ import Layout from './components/Layout.vue'
     <router-view></router-view>
   </Layout>
 </template>
-

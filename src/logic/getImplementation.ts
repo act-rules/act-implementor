@@ -1,7 +1,11 @@
-import { TestCasesJson, ImplementationReport, RuleImplementation } from '../types';
+import {
+  TestCasesJson,
+  ImplementationReport,
+  RuleImplementation,
+} from "../types";
 
 export interface Implementation {
-  rules: Record<string, RuleImplementation>
+  rules: Record<string, RuleImplementation>;
 }
 
 export function getImplementation(
@@ -9,10 +13,10 @@ export function getImplementation(
   implementationReport: ImplementationReport
 ): Implementation {
   const implementation: Implementation = {
-    rules: {}
-  }
+    rules: {},
+  };
 
-  testCaseJson.testcases.forEach(testCase => {
+  testCaseJson.testcases.forEach((testCase) => {
     const {
       testcaseId,
       testcaseTitle,
@@ -21,20 +25,24 @@ export function getImplementation(
       expected,
       ruleId,
       rulePage,
-      ruleAccessibilityRequirements
-    } = testCase
-    const ruleName = testCase.ruleName.replace(/`/g, '')
+      ruleAccessibilityRequirements,
+    } = testCase;
+    const ruleName = testCase.ruleName.replace(/`/g, "");
 
     implementation.rules[testCase.ruleId] ??= {
       ruleName,
       ruleId,
       rulePage,
       ruleAccessibilityRequirements,
-      testCases: []
-    }
+      testCases: [],
+    };
     implementation.rules[testCase.ruleId].testCases.push({
-      testcaseId, testcaseTitle, url, relativePath, expected
-    })
-  })
+      testcaseId,
+      testcaseTitle,
+      url,
+      relativePath,
+      expected,
+    });
+  });
   return implementation;
 }

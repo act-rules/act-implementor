@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useMainStore } from '../stores/useMain';
+import { storeToRefs } from "pinia";
+import { useMainStore } from "../stores/useMain";
 
-const mainStore = useMainStore()
+const mainStore = useMainStore();
 const { rules } = storeToRefs(mainStore);
 
 function progressCount(ruleId: string): string {
   const { complete, total } = mainStore.getRuleStats(ruleId);
-  return `${complete} / ${total}`
+  return `${complete} / ${total}`;
 }
 </script>
 
@@ -24,7 +24,7 @@ function progressCount(ruleId: string): string {
 
 <style scoped>
 a {
-  padding: .25em .5em .25em .25em;
+  padding: 0.25em 0.5em 0.25em 0.25em;
   display: flex;
   justify-content: space-between;
   text-decoration: none;
@@ -32,7 +32,8 @@ a {
 a > .text {
   text-decoration: underline;
 }
-li:hover, li:focus-within {
+li:hover,
+li:focus-within {
   background-color: var(--base-preEnd);
 }
 </style>

@@ -1,32 +1,35 @@
 {
   "@context": "https://act-rules.github.io/earl-context.json",
-  "@graph": [{
-    "@type": "Assertion",
-    "subject": {
-      "@type": "TestSubject",
-      "source": "https://act-rules.github.io/testcases/5f99a7/9a417788dfd68b83820b01deb71e427f8d8edc3a.html"
+  "@graph": [
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/9a417788dfd68b83820b01deb71e427f8d8edc3a.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "aria test"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:passed"
+      }
     },
-    "test": {
-      "@type": "TestCase",
-      "title": "aria test"
-    },
-    "result": {
-      "@type": "TestResult",
-      "outcome": "earl:passed"
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/4084cf8b4837f69d8ffca44fc13f6a4e3f51fc84.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "aria test"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:passed"
+      }
     }
-  }, {
-    "@type": "Assertion",
-    "subject": {
-      "@type": "TestSubject",
-      "source": "https://act-rules.github.io/testcases/5f99a7/4084cf8b4837f69d8ffca44fc13f6a4e3f51fc84.html"
-    },
-    "test": {
-      "@type": "TestCase",
-      "title": "aria test"
-    },
-    "result": {
-      "@type": "TestResult",
-      "outcome": "earl:passed"
-    }
-  }]
+  ]
 }

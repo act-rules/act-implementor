@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro&display=swap');
-@import url('/src/assets/forms.css');
-@import url('/src/assets/tables.css');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro&display=swap");
+@import url("/src/assets/forms.css");
+@import url("/src/assets/tables.css");
 
 :root {
   --base-start: hsl(0, 0%, 12%);
@@ -18,12 +18,12 @@ body {
   padding: 0;
   color: var(--base-start);
   background: var(--base-end);
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 *:focus {
   outline: solid 1px var(--primary-start);
-  box-shadow: 0 0 2px var(--primary-start),  0 0 4px var(--primary-start);
+  box-shadow: 0 0 2px var(--primary-start), 0 0 4px var(--primary-start);
 }
 
 h1 {
@@ -42,6 +42,7 @@ summary {
 a[href] {
   color: var(--base-start);
 }
-p a[href], nav a[href] {
+p a[href],
+nav a[href] {
   color: var(--primary-start);
 }

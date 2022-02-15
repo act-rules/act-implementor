@@ -1,18 +1,19 @@
-input, textarea {
-  padding: .5rem;
-  margin-top: .5rem;
+input,
+textarea {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
   max-width: 40em;
 }
 
 input[type="radio"] {
   padding: 0;
-  margin: .25em 1em 0 0;
+  margin: 0.25em 1em 0 0;
 }
 
 button {
   color: var(--base-start);
-  padding: .5em 1em;
-  border-radius: .3rem;
+  padding: 0.5em 1em;
+  border-radius: 0.3rem;
   background: var(--primary-back);
   border: solid 3px var(--primary-mid);
   margin-right: 1em;
@@ -35,7 +36,7 @@ label {
 
 label.radio {
   flex-direction: row;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 select {
@@ -48,11 +49,11 @@ textarea {
 
 fieldset {
   border: none;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   padding: 0;
 }
 
 legend {
   font-size: 1.2em;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }

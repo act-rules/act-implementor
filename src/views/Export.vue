@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useMainStore } from '../stores/useMain';
+import { ref } from "vue";
+import { useMainStore } from "../stores/useMain";
 
 const { getEarlReport } = useMainStore();
-const textarea = ref()
+const textarea = ref();
 
 function copyTextarea() {
   if (textarea.value instanceof HTMLTextAreaElement) {
@@ -18,7 +18,11 @@ function copyTextarea() {
   <h1>Export Results</h1>
   <label>
     JSON Results
-    <textarea v-text="getEarlReport()" readonly :ref="el => textarea = el" />
+    <textarea
+      v-text="getEarlReport()"
+      readonly
+      :ref="(el) => (textarea = el)"
+    />
   </label>
   <button @click="copyTextarea">Copy to clipboard</button>
   <button disabled>Download file</button>

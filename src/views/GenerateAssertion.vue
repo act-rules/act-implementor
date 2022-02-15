@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useMainStore } from '../stores/useMain';
-import ImplementationTable from '../components/ImplementationTable.vue';
-import { AccessibilityRequirement, RuleImplementation } from '../types';
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useMainStore } from "../stores/useMain";
+import ImplementationTable from "../components/ImplementationTable.vue";
+import { AccessibilityRequirement, RuleImplementation } from "../types";
 
-let rule: RuleImplementation
-const { getRule, renameProcedure, findProcedureName, getRuleStats } = useMainStore();
+let rule: RuleImplementation;
+const { getRule, renameProcedure, findProcedureName, getRuleStats } =
+  useMainStore();
 const ruleId = String(useRoute().params.ruleId);
 const procedureName = ref(findProcedureName(ruleId));
 try {
   rule = getRule(ruleId);
 } catch (e) {
   console.error(e);
-  useRouter().replace('/start');
+  useRouter().replace("/start");
 }
 
 function updateProcedure(e: Event) {
@@ -27,24 +28,25 @@ function requirementName(
   id: string,
   requirement: AccessibilityRequirement
 ): string {
-  return requirement.title || id
+  return requirement.title || id;
 }
 
 function countText() {
-  const { complete, total } = getRuleStats(ruleId, procedureName.value)
-  return `${complete} of ${total} tests completed`
+  const { complete, total } = getRuleStats(ruleId, procedureName.value);
+  return `${complete} of ${total} tests completed`;
 }
 </script>
 
 <template>
-  <h1>{{ rule.ruleName }} ({{rule.ruleId}})</h1>
+  <h1>{{ rule.ruleName }} ({{ rule.ruleId }})</h1>
   <p>
-    An Implementation procedure is a step, rule, or procedure in an testing methodology 
-    or automated testing tool. This procedure must test for the accessibility requirements.
-    For details, see the <a :href="rule.rulePage" target="blank">rule page</a>.
+    An Implementation procedure is a step, rule, or procedure in an testing
+    methodology or automated testing tool. This procedure must test for the
+    accessibility requirements. For details, see the
+    <a :href="rule.rulePage" target="blank">rule page</a>.
   </p>
   <ul v-if="rule.ruleAccessibilityRequirements">
-    <li v-for="requirement, key in rule.ruleAccessibilityRequirements">
+    <li v-for="(requirement, key) in rule.ruleAccessibilityRequirements">
       {{ requirementName(key, requirement) }}
     </li>
   </ul>

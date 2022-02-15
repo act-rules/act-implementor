@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
-import { useMainStore } from '../stores/useMain';
+import { ref, defineEmits } from "vue";
+import { useMainStore } from "../stores/useMain";
 
 const { loadTestCases, loadReportText, resetReport } = useMainStore();
-const statusText = ref('');
-const reportText = ref('');
-const reportUrl = ref('https://');
-const inputType = ref('blank');
-const testcaseUrl = ref('https://act-rules.github.io/testcases.json');
-const emit = defineEmits(['loaded']);
+const statusText = ref("");
+const reportText = ref("");
+const reportUrl = ref("https://");
+const inputType = ref("blank");
+const testcaseUrl = ref("https://act-rules.github.io/testcases.json");
+const emit = defineEmits(["loaded"]);
 
 function reportIssue(e: any, message: string) {
   console.error(e);
-  statusText.value = `An error occurred processing the EARL report.`
+  statusText.value = `An error occurred processing the EARL report.`;
 }
 
 async function loadData() {
-  let downloadedReport = '';
-  if (inputType.value === 'url') {
+  let downloadedReport = "";
+  if (inputType.value === "url") {
     try {
       const response = await fetch(reportUrl.value);
       downloadedReport = await response.text();
@@ -26,7 +26,7 @@ async function loadData() {
     }
   }
 
-  if (inputType.value !== 'blank') {
+  if (inputType.value !== "blank") {
     try {
       loadReportText(downloadedReport || reportText.value);
     } catch (e) {
@@ -41,7 +41,7 @@ async function loadData() {
   } catch (e) {
     return reportIssue(e, `An error processing testcases.json.`);
   }
-  emit('loaded');
+  emit("loaded");
 }
 </script>
 
@@ -71,25 +71,23 @@ async function loadData() {
   </label>
   <label v-show="inputType === 'url'">
     Implementation Report URL
-    <input v-model="reportUrl">
+    <input v-model="reportUrl" />
   </label>
 
   <details>
     <summary>Advanced Settings</summary>
     <label>
       URL to testcases.json
-      <input v-model="testcaseUrl">
+      <input v-model="testcaseUrl" />
     </label>
   </details>
-  <button @click="loadData">
-    Load Implementations
-  </button>
+  <button @click="loadData">Load Implementations</button>
 </template>
 
 <style scoped>
-  [aria-live] {
-    padding: .75rem;
-    background: var(--primary-end);
-    border: solid 1px var(--primary-start);
-  }
+[aria-live] {
+  padding: 0.75rem;
+  background: var(--primary-end);
+  border: solid 1px var(--primary-start);
+}
 </style>

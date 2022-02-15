@@ -8,18 +8,19 @@
 </template>
 
 <style scoped>
-  ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  a {
-    text-decoration: none;
-    padding: .5em 1em;
-    display: inline-block;
-  }
-  a:hover, a:focus {
-    text-decoration: underline;
-  }
+ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  padding: 0.5em 1em;
+  display: inline-block;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
 </style>
