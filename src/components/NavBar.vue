@@ -2,7 +2,8 @@
   <ul>
     <li><router-link to="/">Home</router-link></li>
     <li><router-link to="/start">Start</router-link></li>
-    <li><router-link to="/generate">Overview</router-link></li>
+    <li><router-link to="/implementation">Implementation</router-link></li>
+    <li><router-link to="/rules">Rules</router-link></li>
     <li><router-link to="/export">Export</router-link></li>
   </ul>
 </template>

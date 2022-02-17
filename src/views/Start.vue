@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 import DataLoader from "../components/DataLoader.vue";
 import { useMainStore } from "../stores/useMain";
 
-const store = useMainStore();
-const { loaded } = storeToRefs(store);
+const router = useRouter();
+const { loaded } = storeToRefs(useMainStore());
+
+function redirect(action: string) {
+  router.push(action === "new" ? "/implementation" : "/rules");
+}
 </script>
 
 <template>
@@ -12,5 +17,5 @@ const { loaded } = storeToRefs(store);
   <p v-if="loaded">
     Content already loaded. Reloading replaces any unsaved results.
   </p>
-  <DataLoader @loaded="$router.replace('/generate')" />
+  <DataLoader @loaded="redirect" />
 </template>

@@ -14,7 +14,7 @@ function progressCount(ruleId: string): string {
 <template>
   <ol>
     <li v-for="{ ruleId, ruleName } of rules" :key="ruleId">
-      <router-link :to="`/generate/${ruleId}`">
+      <router-link :to="`/rules/${ruleId}`">
         <span class="text" v-text="ruleName" />
         <span v-text="progressCount(ruleId)" />
       </router-link>

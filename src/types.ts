@@ -1,3 +1,13 @@
+export interface Implementation {
+  projectName?: string;
+  shortdesc?: string;
+  description?: string;
+  homepage?: string;
+  license?: string;
+  versionName?: string;
+  versionDate?: string;
+}
+
 export interface TestCasesJson {
   name: string;
   website: string;
@@ -53,9 +63,20 @@ export interface Procedure {
   assertions: Record<string, string>;
 }
 
-export interface EarlReport {
+export interface EarlActImplementation {
   "@context": string;
-  "@graph": EarlAssertion[];
+  "@type": string[];
+  name?: string;
+  shortdesc?: string;
+  description?: string;
+  homepage?: string;
+  license?: string;
+  release?: {
+    "@type": "Version";
+    created?: string;
+    revision?: string;
+  };
+  assertedThat?: EarlAssertion[];
 }
 
 export interface EarlAssertion {

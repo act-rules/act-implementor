@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import {
-  EarlReport,
+  EarlActImplementation,
   EarlAssertion,
   EarlTestSubject,
   EarlTestCase,
@@ -25,7 +25,7 @@ export function assert(assertion: any, msg: string): asserts assertion {
 export function validImport(
   report: any,
   context: string
-): asserts report is EarlReport {
+): asserts report is EarlActImplementation {
   assert(
     typeof report === "object",
     `Expected EARL report to be an object, received ${report}`
@@ -35,11 +35,78 @@ export function validImport(
     `Expected @context to be ${context}, received ${report["@context"]}`
   );
   assert(
-    Array.isArray(report["@graph"]),
-    `Expected @graph to be an array, received ${report["@graph"]}`
+    Array.isArray(report["@type"]) && report["@type"].length === 2,
+    `Expected @type to be an array of length 2, received ${report["@type"]}`
+  );
+  assert(
+    report["@type"].includes("Project") && report["@type"].includes("Assertor"),
+    `Expected @context to be ${context}, received ${report["@context"]}`
   );
 
-  report["@graph"].forEach(validEarlAssertion);
+  if (report.name !== undefined) {
+    assert(
+      typeof report.name === "string",
+      `Expected name to be a string, received ${report.name}`
+    );
+  }
+  if (report.shortdesc !== undefined) {
+    assert(
+      typeof report.shortdesc === "string",
+      `Expected shortdesc to be a string, received ${report.shortdesc}`
+    );
+  }
+  if (report.description !== undefined) {
+    assert(
+      typeof report.description === "string",
+      `Expected description to be a string, received ${report.description}`
+    );
+  }
+  if (report.homepage !== undefined) {
+    assert(
+      typeof report.homepage === "string",
+      `Expected homepage to be a string, received ${report.homepage}`
+    );
+  }
+  if (report.license !== undefined) {
+    assert(
+      typeof report.license === "string",
+      `Expected license to be a string, received ${report.license}`
+    );
+  }
+  if (report.release !== undefined) {
+    validRelease(report.release);
+  }
+
+  assert(
+    Array.isArray(report.assertedThat),
+    `Expected assertedThat to be an array, received ${report.assertedThat}`
+  );
+  report.assertedThat.forEach(validEarlAssertion);
+}
+
+export function validRelease(
+  release: any
+): asserts release is EarlActImplementation["release"] {
+  assert(
+    typeof release === "object",
+    `Expected EARL report to be an object, received ${release}`
+  );
+  assert(
+    release["@type"] === "Version",
+    `Expected @type to be Assertion, received ${release["@type"]}`
+  );
+  if (release.revision !== undefined) {
+    assert(
+      typeof release.revision === "string",
+      `Expected release.revision to be a string, received ${release.revision}`
+    );
+  }
+  if (release.created !== undefined) {
+    assert(
+      typeof release.created === "string",
+      `Expected release.created to be a string, received ${release.created}`
+    );
+  }
 }
 
 export function validEarlAssertion(

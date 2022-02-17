@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useMainStore } from "../stores/useMain";
 import { RuleImplementation } from "../types";
-import { defineProps, ref } from "vue";
+import { ref } from "vue";
 
 const { getRule, getOutcome, setOutcome } = useMainStore();
 const props = defineProps<{ ruleId: string; procedureName: string }>();

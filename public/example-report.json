@@ -1,6 +1,13 @@
 {
   "@context": "https://act-rules.github.io/earl-context.json",
-  "@graph": [
+  "@type": ["Assertor", "Project"],
+  "name": "Acme Checker Test Tool",
+  "shortdesc": "This is an example",
+  "release": {
+    "@type": "Version",
+    "revision": "1.0.0"
+  },
+  "assertedThat": [
     {
       "@type": "Assertion",
       "subject": {
@@ -9,7 +16,7 @@
       },
       "test": {
         "@type": "TestCase",
-        "title": "aria test"
+        "title": "interactive elements"
       },
       "result": {
         "@type": "TestResult",
@@ -24,7 +31,82 @@
       },
       "test": {
         "@type": "TestCase",
-        "title": "aria test"
+        "title": "interactive elements"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:passed"
+      }
+    },
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/bd673776fddce4f81a3f7ec43c5986ee21983341.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "interactive elements"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:passed"
+      }
+    },
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/bc5dc64fa7070b8eeb02023dbcdf6699fca53b77.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "interactive elements"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:passed"
+      }
+    },
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/5552a82ba7fd830b212b4e858205521f1b52d5ee.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "interactive elements"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:failed"
+      }
+    },
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/8a920a0a51a6eecba025b59d037e46f6a1d775ea.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "interactive elements"
+      },
+      "result": {
+        "@type": "TestResult",
+        "outcome": "earl:failed"
+      }
+    },
+    {
+      "@type": "Assertion",
+      "subject": {
+        "@type": "TestSubject",
+        "source": "https://act-rules.github.io/testcases/5f99a7/deab475b4823df6c12ff62ea36fc1f64ecf79b3f.html"
+      },
+      "test": {
+        "@type": "TestCase",
+        "title": "interactive elements"
       },
       "result": {
         "@type": "TestResult",

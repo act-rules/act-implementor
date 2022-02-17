@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import { useMainStore } from "../stores/useMain";
 
 const { loadTestCases, loadReportText, resetReport } = useMainStore();
 const statusText = ref("");
 const reportText = ref("");
 const reportUrl = ref("https://");
-const inputType = ref("blank");
+const inputType = ref("new");
 const testcaseUrl = ref("https://act-rules.github.io/testcases.json");
 const emit = defineEmits(["loaded"]);
 
@@ -26,7 +26,7 @@ async function loadData() {
     }
   }
 
-  if (inputType.value !== "blank") {
+  if (inputType.value !== "new") {
     try {
       loadReportText(downloadedReport || reportText.value);
     } catch (e) {
@@ -41,7 +41,7 @@ async function loadData() {
   } catch (e) {
     return reportIssue(e, `An error processing testcases.json.`);
   }
-  emit("loaded");
+  emit("loaded", inputType.value);
 }
 </script>
 
@@ -52,7 +52,7 @@ async function loadData() {
   <fieldset>
     <legend>Implementation Settings</legend>
     <label class="radio">
-      <input v-model="inputType" value="blank" type="radio" name="impl-type" />
+      <input v-model="inputType" value="new" type="radio" name="impl-type" />
       Create a new implementation
     </label>
     <label class="radio">

@@ -6,6 +6,7 @@ import {
   TestCasesJson,
   RuleImplementation,
   Procedure,
+  Implementation,
 } from "../types";
 import { createReport, loadReport } from "../logic/earl";
 
@@ -14,6 +15,7 @@ interface State {
   testCases?: TestCase[];
   rules?: Record<string, RuleImplementation>;
   procedures: Record<string, Procedure>;
+  implementation: Implementation;
 }
 
 export const useMainStore = defineStore("main", {
@@ -22,6 +24,7 @@ export const useMainStore = defineStore("main", {
     testCases: undefined,
     rules: undefined,
     procedures: {},
+    implementation: {},
   }),
 
   getters: {
@@ -83,10 +86,12 @@ export const useMainStore = defineStore("main", {
 
     resetReport() {
       this.procedures = {};
+      this.implementation = {};
     },
 
     loadReportText(reportText: string) {
-      const procedures = loadReport(reportText);
+      const { procedures, implementation } = loadReport(reportText);
+      this.implementation = implementation;
       this.procedures = procedures;
     },
 
@@ -115,7 +120,7 @@ export const useMainStore = defineStore("main", {
     },
 
     getEarlReport(): string {
-      return createReport(this.procedures);
+      return createReport(this.procedures, this.implementation);
     },
   },
 });
