@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import { useMainStore } from "../stores/useMain";
 
 const mainStore = useMainStore();
-const { rules } = storeToRefs(mainStore);
+const props = defineProps<{ ruleIds: string[] }>();
+
+const filteredRules: typeof mainStore["rules"] = {};
+if (mainStore.rules) {
+  Object.entries(mainStore.rules).forEach(([ruleId, ruleData]) => {
+    if (props.ruleIds.includes(ruleId)) {
+      filteredRules[ruleId] = ruleData;
+    }
+  });
+}
 
 function progressCount(ruleId: string): string {
   const { complete, total } = mainStore.getRuleStats(ruleId);
@@ -13,7 +21,7 @@ function progressCount(ruleId: string): string {
 
 <template>
   <ol>
-    <li v-for="{ ruleId, ruleName } of rules" :key="ruleId">
+    <li v-for="{ ruleId, ruleName } of filteredRules" :key="ruleId">
       <router-link :to="`/rules/${ruleId}`">
         <span class="text" v-text="ruleName" />
         <span v-text="progressCount(ruleId)" />

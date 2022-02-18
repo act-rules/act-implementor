@@ -28,6 +28,24 @@ export const useMainStore = defineStore("main", {
   }),
 
   getters: {
+    rulesOutcome(): Record<string, string[]> {
+      const ruleIds = Object.keys(this.rules || {});
+      const complete: string[] = [];
+      const incomplete: string[] = [];
+      const untested: string[] = [];
+      ruleIds.forEach((ruleId) => {
+        const stats = this.getRuleStats(ruleId);
+        if (stats.complete === 0) {
+          untested.push(ruleId);
+        } else if (stats.complete === stats.total) {
+          complete.push(ruleId);
+        } else {
+          incomplete.push(ruleId);
+        }
+      });
+      return { complete, incomplete, untested };
+    },
+
     getRule() {
       return (ruleId: string): RuleImplementation => {
         assert(this.rules?.[ruleId], `Unknown rule ID ${ruleId}`);
