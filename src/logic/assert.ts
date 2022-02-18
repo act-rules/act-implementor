@@ -11,7 +11,7 @@ import {
 const outcomes = [
   "passed",
   "failed",
-  "cannotTell",
+  "cantTell",
   "untested",
   "inapplicable",
 ] as const;

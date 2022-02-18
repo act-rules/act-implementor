@@ -2,8 +2,18 @@
 import { ref } from "vue";
 import { useMainStore } from "../stores/useMain";
 
+// TODO: Error handling on this
+
 const { getEarlReport } = useMainStore();
 const textarea = ref();
+const reportText = ref("");
+const error = ref("");
+try {
+  reportText.value = getEarlReport();
+} catch (e) {
+  error.value = "An error occurred generating the report";
+  console.error(e);
+}
 
 function copyTextarea() {
   if (textarea.value instanceof HTMLTextAreaElement) {
@@ -16,14 +26,18 @@ function copyTextarea() {
 
 <template>
   <h1>Export Results</h1>
-  <label>
-    JSON Results
-    <textarea
-      :ref="(el) => (textarea = el)"
-      readonly
-      v-text="getEarlReport()"
-    />
-  </label>
-  <button @click="copyTextarea">Copy to clipboard</button>
-  <button disabled>Download file</button>
+  <p v-if="error" class="alert" v-text="error" />
+  <template v-else>
+    <label>
+      JSON Results
+      <textarea
+        :ref="(el) => (textarea = el)"
+        readonly
+        rows="10"
+        v-text="reportText"
+      />
+    </label>
+    <button @click="copyTextarea">Copy to clipboard</button>
+    <button disabled>Download file</button>
+  </template>
 </template>

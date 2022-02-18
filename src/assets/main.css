@@ -46,3 +46,10 @@ p a[href],
 nav a[href] {
   color: var(--primary-start);
 }
+
+.alert {
+  border: 1px solid var(--primary-start);
+  color: var(--primary-start);
+  background: var(--primary-end);
+  padding: 0.5rem;
+}

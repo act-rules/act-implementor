@@ -60,5 +60,5 @@ function countText() {
   </label>
   <ImplementationTable :rule-id="rule.ruleId" :procedure-name="procedureName" />
   <p v-text="countText()" />
-  <p><router-link to="/generate/">Back to rules list</router-link></p>
+  <p><router-link to="/rules">Back to rules list</router-link></p>
 </template>

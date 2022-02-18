@@ -6,7 +6,6 @@ import {
 import Home from "./views/Home.vue";
 import RuleList from "./views/RuleList.vue";
 import GenerateAssertion from "./views/GenerateAssertion.vue";
-import About from "./views/About.vue";
 import Implementation from "./views/Implementation.vue";
 import Start from "./views/Start.vue";
 import Export from "./views/Export.vue";
@@ -23,11 +22,6 @@ export const router = createRouter({
     {
       path: "/",
       component: Home,
-    },
-    {
-      path: "/about",
-      component: About,
-      meta: { title: "About" },
     },
     {
       path: "/start",
