@@ -2,11 +2,12 @@
 import { ref } from "vue";
 import { useMainStore } from "../stores/useMain";
 
+const { localStorage } = window;
 const { loadTestCases, loadReportText, resetReport } = useMainStore();
 const statusText = ref("");
 const reportText = ref("");
-const reportUrl = ref("https://");
-const inputType = ref("new");
+const inputType = ref(localStorage.getItem("inputType") ?? "new");
+const reportUrl = ref(localStorage.getItem("reportUrl") ?? "https://");
 const testcaseUrl = ref("https://act-rules.github.io/testcases.json");
 const emit = defineEmits(["loaded"]);
 
@@ -17,7 +18,9 @@ function reportIssue(e: unknown, message: string) {
 
 async function loadData() {
   let downloadedReport = "";
+  localStorage.setItem("inputType", inputType.value);
   if (inputType.value === "url") {
+    localStorage.setItem("reportUrl", reportUrl.value);
     try {
       const response = await fetch(reportUrl.value);
       downloadedReport = await response.text();
