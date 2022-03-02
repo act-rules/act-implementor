@@ -20,9 +20,18 @@ async function loadData() {
   let downloadedReport = "";
   localStorage.setItem("inputType", inputType.value);
   if (inputType.value === "url") {
+    let url = reportUrl.value;
     localStorage.setItem("reportUrl", reportUrl.value);
+
+    // Normalize GitHub URLs
+    if (url.includes("://github.com/") && url.includes("/blob/")) {
+      url = url
+        .replace("://github.com/", "://raw.githubusercontent.com/")
+        .replace("/blob/", "/");
+    }
+
     try {
-      const response = await fetch(reportUrl.value);
+      const response = await fetch(url);
       downloadedReport = await response.text();
     } catch (e) {
       return reportIssue(e, `An error downloading the EARL report.`);
