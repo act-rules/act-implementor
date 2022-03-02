@@ -92,6 +92,18 @@ export const useMainStore = defineStore("main", {
         );
       };
     },
+
+    reportFileName() {
+      let safeName = `act-report`;
+      const { projectName } = this.implementation;
+      if (projectName) {
+        safeName = projectName
+          .toLowerCase()
+          .replace(/[\s]+/g, "-")
+          .replace(/[^a-z0-9-_]/gi, "");
+      }
+      return `${safeName}.json`;
+    },
   },
 
   actions: {

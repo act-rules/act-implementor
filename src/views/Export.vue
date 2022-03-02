@@ -2,14 +2,12 @@
 import { ref } from "vue";
 import { useMainStore } from "../stores/useMain";
 
-// TODO: Error handling on this
-
-const { getEarlReport, setUnsaved } = useMainStore();
+const store = useMainStore();
 const textarea = ref();
 const reportText = ref("");
 const error = ref("");
 try {
-  reportText.value = getEarlReport();
+  reportText.value = store.getEarlReport();
 } catch (e) {
   error.value = "An error occurred generating the report";
   console.error(e);
@@ -20,8 +18,22 @@ function copyTextarea() {
     textarea.value.select();
     textarea.value.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(textarea.value.value);
-    setUnsaved(false);
+    store.setUnsaved(false);
   }
+}
+
+function downloadFile() {
+  const blobConfig = new Blob([reportText.value], {
+    type: "text/json;charset=utf-8",
+  });
+  const blobUrl = URL.createObjectURL(blobConfig);
+  const anchor = document.createElement("a");
+  anchor.href = blobUrl;
+  anchor.target = "_blank";
+  anchor.download = store.reportFileName;
+  anchor.click();
+  // This is required
+  URL.revokeObjectURL(blobUrl);
 }
 </script>
 
@@ -39,6 +51,6 @@ function copyTextarea() {
       />
     </label>
     <button @click="copyTextarea">Copy to clipboard</button>
-    <button disabled>Download file</button>
+    <button @click="downloadFile">Download file</button>
   </template>
 </template>
