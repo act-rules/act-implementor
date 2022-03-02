@@ -6,20 +6,22 @@ import Icon from "./Icon.vue";
   <ul>
     <li>
       <router-link to="/" data-destination="home">
-        <Icon type="house" />Home
+        <Icon type="house" /> Home
       </router-link>
     </li>
     <li>
       <router-link to="/how-to-use" data-destination="help">
-        <Icon type="question-circle" />How to use
+        <Icon type="question-circle" /> How to use
       </router-link>
     </li>
     <li>
-      <router-link to="/start"> <Icon type="cloud-upload" />Start </router-link>
+      <router-link to="/start">
+        <Icon type="cloud-upload" /> Start
+      </router-link>
     </li>
     <li>
       <router-link to="/implementation">
-        <Icon type="card-heading" />Implementation
+        <Icon type="card-heading" /> Implementation
       </router-link>
     </li>
     <li>
@@ -27,12 +29,12 @@ import Icon from "./Icon.vue";
         to="/rules/"
         :class="{ active: $route.fullPath.includes('/rules/') }"
       >
-        <Icon type="card-list" />Rules
+        <Icon type="card-list" /> Rules
       </router-link>
     </li>
     <li>
       <router-link to="/export">
-        <Icon type="cloud-download" />Export
+        <Icon type="cloud-download" /> Export
       </router-link>
     </li>
   </ul>
@@ -50,7 +52,7 @@ li {
 a {
   text-decoration: none;
   border-top: 3px solid transparent;
-  padding: 0.25em 1em;
+  padding: 0.25em 0.75em;
   display: inline-block;
 }
 a:hover,
