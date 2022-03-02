@@ -16,6 +16,7 @@ interface State {
   rules?: Record<string, RuleImplementation>;
   procedures: Record<string, Procedure>;
   implementation: Implementation;
+  unsaved: boolean;
 }
 
 export const useMainStore = defineStore("main", {
@@ -23,6 +24,7 @@ export const useMainStore = defineStore("main", {
     loaded: false,
     testCases: undefined,
     rules: undefined,
+    unsaved: false,
     procedures: {},
     implementation: {},
   }),
@@ -93,6 +95,18 @@ export const useMainStore = defineStore("main", {
   },
 
   actions: {
+    setUnsaved(unsaved = true) {
+      this.unsaved = unsaved;
+      // Register the event listener
+      if (unsaved && !window.onbeforeunload) {
+        window.onbeforeunload = () => {
+          if (this.unsaved) {
+            return `There may be unsaved changes. Are you sure you want to exit this page?`;
+          }
+        };
+      }
+    },
+
     async loadTestCases(testCaseUrl: string) {
       const content = await fetch(testCaseUrl);
       const jsonData = (await content.json()) as TestCasesJson;
@@ -134,6 +148,7 @@ export const useMainStore = defineStore("main", {
       assertions[testCaseUrl] = outcome;
       if (testCase?.ruleId && !ruleIds.includes(testCase.ruleId)) {
         ruleIds.push(testCase.ruleId);
+        this.setUnsaved();
       }
     },
 

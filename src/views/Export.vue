@@ -4,7 +4,7 @@ import { useMainStore } from "../stores/useMain";
 
 // TODO: Error handling on this
 
-const { getEarlReport } = useMainStore();
+const { getEarlReport, setUnsaved } = useMainStore();
 const textarea = ref();
 const reportText = ref("");
 const error = ref("");
@@ -20,6 +20,7 @@ function copyTextarea() {
     textarea.value.select();
     textarea.value.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(textarea.value.value);
+    setUnsaved(false);
   }
 }
 </script>
