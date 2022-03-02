@@ -5,10 +5,12 @@ import Icon from "./Icon.vue";
 <template>
   <ul>
     <li>
-      <router-link to="/"> <Icon type="house" />Home </router-link>
+      <router-link to="/" data-destination="home">
+        <Icon type="house" />Home
+      </router-link>
     </li>
     <li>
-      <router-link to="/how-to-use">
+      <router-link to="/how-to-use" data-destination="help">
         <Icon type="question-circle" />How to use
       </router-link>
     </li>

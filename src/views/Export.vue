@@ -51,10 +51,10 @@ function downloadFile() {
         v-text="reportText"
       />
     </label>
-    <button @click="copyTextarea">
+    <button data-action="copy" @click="copyTextarea">
       <Icon type="clipboard-plus" /> Copy to clipboard
     </button>
-    <button @click="downloadFile">
+    <button data-action="download" @click="downloadFile">
       <Icon type="file-earmark-arrow-down" /> Download file
     </button>
   </template>
