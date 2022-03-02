@@ -8,6 +8,7 @@ import RuleList from "./views/RuleList.vue";
 import GenerateAssertion from "./views/GenerateAssertion.vue";
 import Implementation from "./views/Implementation.vue";
 import Start from "./views/Start.vue";
+import HowToUse from "./views/HowToUse.vue";
 import Export from "./views/Export.vue";
 import Error from "./views/Error.vue";
 import { useMainStore } from "./stores/useMain";
@@ -27,6 +28,11 @@ export const router = createRouter({
       path: "/start",
       component: Start,
       meta: { title: "Start a report" },
+    },
+    {
+      path: "/how-to-use",
+      component: HowToUse,
+      meta: { title: "How to use" },
     },
     {
       path: "/implementation",

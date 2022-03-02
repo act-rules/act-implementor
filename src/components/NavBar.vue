@@ -1,6 +1,7 @@
 <template>
   <ul>
     <li><router-link to="/">Home</router-link></li>
+    <li><router-link to="/how-to-use">How to use</router-link></li>
     <li><router-link to="/start">Start</router-link></li>
     <li><router-link to="/implementation">Implementation</router-link></li>
     <li><router-link to="/rules">Rules</router-link></li>
