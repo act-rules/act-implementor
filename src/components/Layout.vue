@@ -1,14 +1,26 @@
 <script setup lang="ts">
 import NavBar from "./NavBar.vue";
+import { ref } from "vue";
+const main = ref();
+function skipToContent(e: Event) {
+  if (main.value instanceof HTMLElement) {
+    e.preventDefault();
+    main.value.focus();
+    return false;
+  }
+}
 </script>
 
 <template>
   <div id="layout">
+    <div class="skiplink">
+      <a href="#main" @click="skipToContent"> Skip to main content </a>
+    </div>
     <header>
       <div><router-link to="/">ACT Implementation Generator</router-link></div>
     </header>
     <nav><NavBar /></nav>
-    <main>
+    <main id="main" :ref="(el) => (main = el)" tabindex="-1">
       <slot />
     </main>
     <footer>
@@ -31,9 +43,17 @@ import NavBar from "./NavBar.vue";
   display: flex;
   flex-direction: column;
 }
+.skiplink > a {
+  position: absolute;
+  top: -2em;
+}
+.skiplink > a:focus {
+  top: 0;
+}
 header > div,
 footer > p,
 main,
+.skiplink,
 nav {
   box-sizing: border-box;
   margin: 0 auto;
@@ -44,6 +64,7 @@ nav {
 header {
   background: var(--base-preEnd);
   border-bottom: solid 1px var(--primary-start);
+  padding-top: 0.5em;
   font-size: 1.5em;
   font-weight: 900;
 }
@@ -60,9 +81,14 @@ header a:hover,
 header a:focus {
   text-decoration: underline;
 }
+
 main {
   flex-grow: 1;
+  /* Prevent visible focus indicator */
+  box-shadow: none;
+  outline: none;
 }
+
 footer {
   font-size: 0.9em;
   margin-top: 1rem;

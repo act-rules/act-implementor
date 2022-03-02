@@ -19,6 +19,13 @@ const hasStarted: NavigationGuardWithThis<undefined> = () => {
 
 export const router = createRouter({
   history: createWebHashHistory(),
+  scrollBehavior() {
+    const main = document.querySelector("#main");
+    if (main instanceof HTMLElement) {
+      main.focus();
+    }
+    return { top: 0 };
+  },
   routes: [
     {
       path: "/",
