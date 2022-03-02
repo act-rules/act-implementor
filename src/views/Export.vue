@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Icon from "../components/Icon.vue";
 import { ref } from "vue";
 import { useMainStore } from "../stores/useMain";
 
@@ -50,7 +51,11 @@ function downloadFile() {
         v-text="reportText"
       />
     </label>
-    <button @click="copyTextarea">Copy to clipboard</button>
-    <button @click="downloadFile">Download file</button>
+    <button @click="copyTextarea">
+      <Icon type="clipboard-plus" /> Copy to clipboard
+    </button>
+    <button @click="downloadFile">
+      <Icon type="file-earmark-arrow-down" /> Download file
+    </button>
   </template>
 </template>

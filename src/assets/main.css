@@ -33,7 +33,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 [hidden] {
@@ -60,7 +60,6 @@ nav a[href] {
 }
 
 .icon {
-  font-size: 0.7em;
   display: inline-block;
   padding: 0.2em 0.25rem;
 }

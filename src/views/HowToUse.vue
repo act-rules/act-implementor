@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Icon from "../components/Icon.vue";
+</script>
+
 <template>
   <h1>How to use</h1>
   <p>
@@ -69,7 +73,7 @@
         href="https://www.w3.org/WAI/standards-guidelines/act/rules/about/"
         target="_blank"
       >
-        About ACT Rules<i class="bi-box-arrow-up-right icon"></i>
+        About ACT Rules<Icon type="box-arrow-up-right" small />
       </a>
     </li>
     <li>
@@ -77,7 +81,7 @@
         href="https://act-rules.github.io/pages/implementations/overview/"
         target="_blank"
       >
-        ACT Rule implementations<i class="bi-box-arrow-up-right icon"></i>
+        ACT Rule implementations<Icon type="box-arrow-up-right" small />
       </a>
     </li>
     <li>
@@ -85,7 +89,7 @@
         href="https://act-rules.github.io/pages/implementations/mapping/"
         target="_blank"
       >
-        Mapping to ACT rules<i class="bi-box-arrow-up-right icon"></i>
+        Mapping to ACT rules<Icon type="box-arrow-up-right" small />
       </a>
     </li>
     <li>
@@ -93,7 +97,7 @@
         href="https://act-rules.github.io/pages/implementations/reporting/"
         target="_blank"
       >
-        Submit an implementation<i class="bi-box-arrow-up-right icon"></i>
+        Submit an implementation<Icon type="box-arrow-up-right" small />
       </a>
     </li>
   </ul>
