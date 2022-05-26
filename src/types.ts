@@ -60,6 +60,7 @@ export interface AccessibilityRequirement {
 
 export interface Procedure {
   ruleIds: string[];
+  successCriteria: string;
   assertions: Record<string, string>;
 }
 
@@ -93,6 +94,12 @@ export interface EarlTestSubject {
 
 export interface EarlTestCase {
   "@type": "TestCase";
+  title: string;
+  isPartOf?: EarlTestRequirement[];
+}
+
+export interface EarlTestRequirement {
+  "@type": "TestRequirement";
   title: string;
 }
 

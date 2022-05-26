@@ -8,7 +8,11 @@ import {
   Procedure,
   Implementation,
 } from "../types";
-import { createReport, loadReport } from "../logic/earl";
+import {
+  createReport,
+  loadReport,
+  successCriteriaFromMapping,
+} from "../logic/earl";
 
 interface State {
   loaded?: boolean;
@@ -65,6 +69,25 @@ export const useMainStore = defineStore("main", {
       };
     },
 
+    findSuccessCriteria() {
+      return (ruleId: string): string => {
+        assert(this.rules?.[ruleId], `Unknown rule ID ${ruleId}`);
+        const rule = this.rules[ruleId];
+        const entries = Object.entries(this.procedures || {});
+        const entry = entries.find(([, { ruleIds }]) =>
+          ruleIds.includes(ruleId)
+        );
+
+        if (!entry) {
+          const accRequirements = Object.keys(
+            rule.ruleAccessibilityRequirements || {}
+          );
+          return successCriteriaFromMapping(accRequirements).join(", ");
+        }
+        return entry[1].successCriteria || "";
+      };
+    },
+
     getRuleStats() {
       return (
         ruleId: string,
@@ -107,7 +130,7 @@ export const useMainStore = defineStore("main", {
   },
 
   actions: {
-    setUnsaved(unsaved = true) {
+    setUnsaved(unsaved = true): void {
       this.unsaved = unsaved;
       // Register the event listener
       if (unsaved && !window.onbeforeunload) {
@@ -119,7 +142,7 @@ export const useMainStore = defineStore("main", {
       }
     },
 
-    async loadTestCases(testCaseUrl: string) {
+    async loadTestCases(testCaseUrl: string): Promise<void> {
       const content = await fetch(testCaseUrl);
       const jsonData = (await content.json()) as TestCasesJson;
       const { rules } = getImplementation(jsonData);
@@ -128,40 +151,97 @@ export const useMainStore = defineStore("main", {
       this.testCases = jsonData.testcases;
     },
 
-    resetReport() {
+    resetReport(): void {
       this.procedures = {};
       this.implementation = {};
     },
 
-    loadReportText(reportText: string) {
+    loadReportText(reportText: string): void {
       const { procedures, implementation } = loadReport(reportText);
       this.implementation = implementation;
       this.procedures = procedures;
     },
 
-    renameProcedure(currentName: string, newName: string) {
-      if (!this.procedures[currentName]) {
-        return; // No procedure, do nothing
+    renameProcedure(ruleId: string, newName: string): void {
+      const currentName = this.findProcedureName(ruleId);
+      const successCriteria = this.findSuccessCriteria(ruleId);
+      const entries = Object.entries(
+        this.procedures[currentName]?.assertions || []
+      );
+      const ruleAssertions = Object.fromEntries(
+        entries.filter(([url]) => {
+          return url.includes(`/${ruleId}/`);
+        })
+      );
+      // If needed, create an empty process to add things to
+      if (!this.procedures[newName]) {
+        this.procedures[newName] = {
+          ruleIds: [],
+          assertions: {},
+          successCriteria,
+        };
       }
-      this.procedures[newName] = {
-        ...(this.procedures[newName] || {}),
-        ...this.procedures[currentName],
+      // Merge rule info into the the process
+      this.procedures[newName].ruleIds.push(ruleId);
+      this.procedures[newName].assertions = {
+        ...this.procedures[newName].assertions,
+        ...ruleAssertions,
       };
-      delete this.procedures[currentName];
+      // Exit early if there's nothing worth keeping on the current process
+      if (
+        !this.procedures[currentName] ||
+        this.procedures[currentName].ruleIds.length <= 1
+      ) {
+        delete this.procedures[currentName];
+        return;
+      }
+      // Remove rule info from the existing process
+      const filteredAssertionEntries = entries.filter(
+        ([url]) => !url.includes(`/${ruleId}/`)
+      );
+      const filteredRuleIds = this.procedures[currentName].ruleIds.filter(
+        (id) => id !== ruleId
+      );
+      this.procedures[currentName].ruleIds = filteredRuleIds;
+      this.procedures[currentName].assertions = Object.fromEntries(
+        filteredAssertionEntries
+      );
     },
 
-    setOutcome(procedureName: string, testCaseUrl: string, outcome: string) {
-      this.procedures[procedureName] ??= { ruleIds: [], assertions: {} };
-      const { assertions, ruleIds } = this.procedures[procedureName];
-      const testCase = this.testCases?.find((testCase) => {
-        testCase.url;
-        return testCase.url === testCaseUrl;
-      });
-      assertions[testCaseUrl] = outcome;
-      if (testCase?.ruleId && !ruleIds.includes(testCase.ruleId)) {
-        ruleIds.push(testCase.ruleId);
-        this.setUnsaved();
+    setSuccessCriteria(ruleId: string, successCriteria: string): void {
+      const procedureName = this.findProcedureName(ruleId);
+      if (!this.procedures[procedureName]) {
+        this.procedures[procedureName] = {
+          ruleIds: [ruleId],
+          successCriteria,
+          assertions: {},
+        };
+      } else {
+        this.procedures[procedureName].successCriteria = successCriteria;
       }
+    },
+
+    setOutcome(
+      procedureName: string,
+      testCaseUrl: string,
+      outcome: string
+    ): void {
+      const testCase = this.testCases?.find(
+        (testCase) => testCase.url === testCaseUrl
+      );
+      assert(testCase, `Unknown testcase with URL ${testCaseUrl}}`);
+      this.procedures[procedureName] ??= {
+        ruleIds: [testCase.ruleId],
+        assertions: {},
+        successCriteria: this.findSuccessCriteria(testCase.ruleId),
+      };
+
+      const { assertions, ruleIds } = this.procedures[procedureName];
+      assertions[testCaseUrl] = outcome;
+      if (!ruleIds.includes(testCase.ruleId)) {
+        ruleIds.push(testCase.ruleId);
+      }
+      this.setUnsaved();
     },
 
     getEarlReport(): string {

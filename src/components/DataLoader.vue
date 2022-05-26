@@ -8,7 +8,9 @@ const statusText = ref("");
 const reportText = ref("");
 const inputType = ref(localStorage.getItem("inputType") ?? "new");
 const reportUrl = ref(localStorage.getItem("reportUrl") ?? "https://");
-const testcaseUrl = ref("https://act-rules.github.io/testcases.json");
+const testcaseUrl = ref(
+  "https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases.json"
+);
 const emit = defineEmits(["loaded"]);
 
 function reportIssue(e: unknown, message: string) {

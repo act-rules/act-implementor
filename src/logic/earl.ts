@@ -3,6 +3,7 @@ import {
   EarlAssertion,
   Implementation,
   EarlActImplementation,
+  EarlTestRequirement,
 } from "../types";
 import { assert, validImport, validOutcome } from "./assert";
 
@@ -56,6 +57,7 @@ function assertionsToEarl(
         test: {
           "@type": "TestCase",
           title: procedureName,
+          isPartOf: getEarlTestRequirements(procedure),
         },
         result: {
           "@type": "TestResult",
@@ -122,11 +124,47 @@ function assertionsFromEarl({
       `Expect to find a ruleID in ${testCaseUrl}`
     );
 
-    procedures[procedureName] ??= { ruleIds: [], assertions: {} };
+    procedures[procedureName] ??= {
+      ruleIds: [],
+      successCriteria: successCriteriaFromEarl(assertion),
+      assertions: {},
+    };
     procedures[procedureName].assertions[testCaseUrl] = outcome;
     if (!procedures[procedureName].ruleIds.includes(ruleId)) {
       procedures[procedureName].ruleIds.push(ruleId);
     }
   });
   return procedures;
+}
+
+export function successCriteriaFromMapping(
+  accRequirements: string[]
+): string[] {
+  const wcag = accRequirements.filter(
+    (requirement) => requirement.indexOf("wcag2") === 0
+  );
+  return wcag.map((criterionKey) => criterionKey.replace(/wcag2\d?:/, ""));
+}
+
+function successCriteriaFromEarl(assertion: EarlAssertion): string {
+  const requirements = assertion.test.isPartOf;
+  const successCriteria: string[] = [];
+  requirements?.forEach(({ title }) => {
+    const scNumber = title.match(/\d\.\d\.\d\d?/)?.[0];
+    if (scNumber) {
+      successCriteria.push(scNumber);
+    }
+  });
+  return successCriteria.join(", ");
+}
+
+function getEarlTestRequirements(procedure: Procedure): EarlTestRequirement[] {
+  const isPartOf: EarlTestRequirement[] = [];
+  (procedure.successCriteria || "").split(",").forEach((scNumber) => {
+    isPartOf.push({
+      "@type": "TestRequirement",
+      title: `WCAG2, SC ${scNumber.trim()}`,
+    });
+  });
+  return isPartOf;
 }
